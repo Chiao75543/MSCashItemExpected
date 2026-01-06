@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>新年氣息期望值計算機</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>新年氣息期望值計算機</h1>
+
+        <div class="card">
+            <h2>投入資金</h2>
+            <div class="input-group">
+                <input type="number" id="investment" placeholder="輸入金額" min="0">
+                <span class="unit">元</span>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>購買方式</h2>
+            <div class="radio-group">
+                <label class="radio-item">
+                    <input type="radio" name="method" value="card" checked>
+                    <span>點卡儲值</span>
+                    <input type="number" id="card-discount" class="discount-input" value="0.95" step="0.01" min="0" max="1">
+                    <span class="unit">折</span>
+                </label>
+                <label class="radio-item">
+                    <input type="radio" name="method" value="cardreader">
+                    <span>讀卡機（5%回饋）</span>
+                </label>
+                <label class="radio-item">
+                    <input type="radio" name="method" value="original">
+                    <span>原價</span>
+                </label>
+                <label class="radio-item">
+                    <input type="radio" name="method" value="gift">
+                    <span>送禮</span>
+                    <input type="number" id="gift-discount" class="discount-input" value="0.8" step="0.01" min="0" max="1">
+                    <span class="unit">折</span>
+                </label>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>心願箱價值（台幣）</h2>
+            <div class="box-values">
+                <div class="box-input">
+                    <label>小吉</label>
+                    <input type="number" id="box-small" placeholder="0" min="0">
+                </div>
+                <div class="box-input">
+                    <label>中吉</label>
+                    <input type="number" id="box-medium" placeholder="0" min="0">
+                </div>
+                <div class="box-input">
+                    <label>大吉</label>
+                    <input type="number" id="box-large" placeholder="0" min="0">
+                </div>
+                <div class="box-input">
+                    <label>超越</label>
+                    <input type="number" id="box-super" placeholder="0" min="0">
+                </div>
+            </div>
+        </div>
+
+        <button id="calculate-btn" class="calculate-btn">計算</button>
+
+        <div id="result" class="card result-card" style="display: none;">
+            <h2>計算結果</h2>
+
+            <div class="result-section">
+                <h3>基本資訊</h3>
+                <div class="result-row">
+                    <span>可得點數：</span>
+                    <span id="r-points">-</span>
+                </div>
+                <div class="result-row">
+                    <span>可抽次數：</span>
+                    <span id="r-draws">-</span>
+                </div>
+                <div class="result-row">
+                    <span>每個氣息成本：</span>
+                    <span id="r-cost">-</span>
+                </div>
+            </div>
+
+            <div class="result-section">
+                <h3>期望獲得氣息</h3>
+                <div id="r-breaths" class="breaths-grid"></div>
+            </div>
+
+            <div class="result-section">
+                <h3>期望心願箱</h3>
+                <div class="result-row">
+                    <span>超越：</span>
+                    <span id="r-box-super">-</span>
+                </div>
+                <div class="result-row">
+                    <span>大吉：</span>
+                    <span id="r-box-large">-</span>
+                </div>
+                <div class="result-row">
+                    <span>中吉：</span>
+                    <span id="r-box-medium">-</span>
+                </div>
+                <div class="result-row">
+                    <span>小吉：</span>
+                    <span id="r-box-small">-</span>
+                </div>
+            </div>
+
+            <div class="result-section highlight">
+                <div class="result-row big">
+                    <span>期望總價值：</span>
+                    <span id="r-value">-</span>
+                </div>
+                <div class="result-row big">
+                    <span>報酬率：</span>
+                    <span id="r-roi">-</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="card info-card">
+            <h3>12生肖機率</h3>
+            <div class="rate-table">
+                <div class="rate-row"><span>馬</span><span>0.15%</span></div>
+                <div class="rate-row"><span>羊</span><span>0.20%</span></div>
+                <div class="rate-row"><span>猴</span><span>0.25%</span></div>
+                <div class="rate-row"><span>雞</span><span>0.80%</span></div>
+                <div class="rate-row"><span>狗</span><span>0.90%</span></div>
+                <div class="rate-row"><span>豬</span><span>1.00%</span></div>
+                <div class="rate-row"><span>鼠</span><span>2.50%</span></div>
+                <div class="rate-row"><span>牛</span><span>3.00%</span></div>
+                <div class="rate-row"><span>虎</span><span>3.50%</span></div>
+                <div class="rate-row"><span>兔</span><span>29.20%</span></div>
+                <div class="rate-row"><span>龍</span><span>29.25%</span></div>
+                <div class="rate-row"><span>蛇</span><span>29.25%</span></div>
+            </div>
+        </div>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>
