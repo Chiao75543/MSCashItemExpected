@@ -21,7 +21,7 @@
             <div class="card">
                 <h2>投入資金</h2>
                 <div class="input-group">
-                    <input type="number" id="investment" placeholder="輸入金額" min="0">
+                    <input type="number" id="investment" placeholder="輸入金額" min="0" aria-label="投入資金">
                     <span class="unit">元</span>
                 </div>
             </div>
@@ -32,7 +32,7 @@
                     <label class="radio-item">
                         <input type="radio" name="method" value="card" checked>
                         <span>點卡儲值</span>
-                        <input type="number" id="card-discount" class="discount-input" value="0.95" step="0.01" min="0" max="1">
+                        <input type="number" id="card-discount" class="discount-input" value="0.95" step="0.01" min="0" max="1" aria-label="點卡折扣">
                         <span class="unit">折</span>
                     </label>
                     <label class="radio-item">
@@ -46,7 +46,7 @@
                     <label class="radio-item">
                         <input type="radio" name="method" value="gift">
                         <span>送禮</span>
-                        <input type="number" id="gift-discount" class="discount-input" value="0.8" step="0.01" min="0" max="1">
+                        <input type="number" id="gift-discount" class="discount-input" value="0.8" step="0.01" min="0" max="1" aria-label="送禮折扣">
                         <span class="unit">折</span>
                     </label>
                 </div>
@@ -56,19 +56,19 @@
                 <h2>心願箱價值（台幣）</h2>
                 <div class="box-values">
                     <div class="box-input">
-                        <label>小吉</label>
+                        <label for="box-small">小吉</label>
                         <input type="number" id="box-small" placeholder="0" min="0">
                     </div>
                     <div class="box-input">
-                        <label>中吉</label>
+                        <label for="box-medium">中吉</label>
                         <input type="number" id="box-medium" placeholder="0" min="0">
                     </div>
                     <div class="box-input">
-                        <label>大吉</label>
+                        <label for="box-large">大吉</label>
                         <input type="number" id="box-large" placeholder="0" min="0">
                     </div>
                     <div class="box-input">
-                        <label>超越</label>
+                        <label for="box-super">超越</label>
                         <input type="number" id="box-super" placeholder="0" min="0">
                     </div>
                 </div>
@@ -157,7 +157,7 @@
                 <div class="card">
                     <h2>投入資金</h2>
                     <div class="input-group">
-                        <input type="number" id="sl-investment" placeholder="輸入金額" min="0">
+                        <input type="number" id="sl-investment" placeholder="輸入金額" min="0" aria-label="投入資金">
                         <span class="unit">元</span>
                     </div>
                 </div>
@@ -168,7 +168,7 @@
                         <label class="radio-item">
                             <input type="radio" name="sl-method" value="card" checked>
                             <span>點卡儲值</span>
-                            <input type="number" id="sl-card-discount" class="discount-input" value="0.95" step="0.01" min="0" max="1">
+                            <input type="number" id="sl-card-discount" class="discount-input" value="0.95" step="0.01" min="0" max="1" aria-label="點卡折扣">
                             <span class="unit">折</span>
                         </label>
                         <label class="radio-item">
@@ -182,7 +182,7 @@
                         <label class="radio-item">
                             <input type="radio" name="sl-method" value="gift">
                             <span>送禮</span>
-                            <input type="number" id="sl-gift-discount" class="discount-input" value="0.8" step="0.01" min="0" max="1">
+                            <input type="number" id="sl-gift-discount" class="discount-input" value="0.8" step="0.01" min="0" max="1" aria-label="送禮折扣">
                             <span class="unit">折</span>
                         </label>
                     </div>
@@ -195,11 +195,11 @@
                     <h3 class="section-title">傳說潛能卷軸</h3>
                     <div class="value-grid">
                         <div class="value-input">
-                            <label>傳說潛能50%</label>
+                            <label for="sl-v-legend50">傳說潛能50%</label>
                             <input type="number" id="sl-v-legend50" placeholder="0" min="0">
                         </div>
                         <div class="value-input">
-                            <label>傳說潛能100%</label>
+                            <label for="sl-v-legend100">傳說潛能100%</label>
                             <input type="number" id="sl-v-legend100" placeholder="0" min="0">
                         </div>
                     </div>
@@ -207,31 +207,31 @@
                     <h3 class="section-title">星力強化券</h3>
                     <div class="value-grid">
                         <div class="value-input">
-                            <label>14星強化券</label>
+                            <label for="sl-v-star14">14星強化券</label>
                             <input type="number" id="sl-v-star14" placeholder="0" min="0">
                         </div>
                         <div class="value-input">
-                            <label>15星強化券</label>
+                            <label for="sl-v-star15">15星強化券</label>
                             <input type="number" id="sl-v-star15" placeholder="0" min="0">
                         </div>
                         <div class="value-input">
-                            <label>16星強化券</label>
+                            <label for="sl-v-star16">16星強化券</label>
                             <input type="number" id="sl-v-star16" placeholder="0" min="0">
                         </div>
                         <div class="value-input">
-                            <label>17星強化券</label>
+                            <label for="sl-v-star17">17星強化券</label>
                             <input type="number" id="sl-v-star17" placeholder="0" min="0">
                         </div>
                         <div class="value-input">
-                            <label>18星強化券</label>
+                            <label for="sl-v-star18">18星強化券</label>
                             <input type="number" id="sl-v-star18" placeholder="0" min="0">
                         </div>
                         <div class="value-input">
-                            <label>19星強化券</label>
+                            <label for="sl-v-star19">19星強化券</label>
                             <input type="number" id="sl-v-star19" placeholder="0" min="0">
                         </div>
                         <div class="value-input">
-                            <label>20星強化券</label>
+                            <label for="sl-v-star20">20星強化券</label>
                             <input type="number" id="sl-v-star20" placeholder="0" min="0">
                         </div>
                     </div>
@@ -239,15 +239,15 @@
                     <h3 class="section-title">突破強化券</h3>
                     <div class="value-grid">
                         <div class="value-input">
-                            <label>21星突破100%</label>
+                            <label for="sl-v-break21-100">21星突破100%</label>
                             <input type="number" id="sl-v-break21-100" placeholder="0" min="0">
                         </div>
                         <div class="value-input">
-                            <label>22星突破100%</label>
+                            <label for="sl-v-break22-100">22星突破100%</label>
                             <input type="number" id="sl-v-break22-100" placeholder="0" min="0">
                         </div>
                         <div class="value-input">
-                            <label>23星追加30%</label>
+                            <label for="sl-v-break23-30">23星追加30%</label>
                             <input type="number" id="sl-v-break23-30" placeholder="0" min="0">
                         </div>
                     </div>
