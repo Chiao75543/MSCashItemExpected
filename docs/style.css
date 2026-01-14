@@ -381,6 +381,29 @@ input[type="number"] {
 }
 
 /* 道具列表 */
+.items-header {
+    display: flex;
+    padding: 8px 12px;
+    font-size: 0.85rem;
+    color: #888;
+    border-bottom: 1px solid #333;
+    margin-bottom: 8px;
+}
+
+.items-header .name {
+    flex: 1;
+}
+
+.items-header .count {
+    width: 80px;
+    text-align: right;
+}
+
+.items-header .value {
+    width: 80px;
+    text-align: right;
+}
+
 .items-list {
     display: flex;
     flex-direction: column;
@@ -389,7 +412,6 @@ input[type="number"] {
 
 .item-row {
     display: flex;
-    justify-content: space-between;
     align-items: center;
     padding: 8px 12px;
     background: #111;
@@ -398,15 +420,20 @@ input[type="number"] {
 }
 
 .item-row .name {
+    flex: 1;
     color: #ccc;
 }
 
 .item-row .count {
+    width: 80px;
+    text-align: right;
     color: #ffd700;
     font-weight: bold;
 }
 
 .item-row .value {
+    width: 80px;
+    text-align: right;
     color: #4caf50;
     font-size: 0.85rem;
 }

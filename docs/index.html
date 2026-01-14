@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>楓之谷期望值計算機</title>
+    <title>現金道具計算機</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container">
-        <h1>楓之谷期望值計算機</h1>
+        <h1>現金道具計算機</h1>
 
         <!-- Tab 切換 -->
         <div class="tab-container">
@@ -82,7 +82,7 @@
                 <div class="result-section">
                     <h3>基本資訊</h3>
                     <div class="result-row">
-                        <span>可得點數：</span>
+                        <span>可得樂豆點：</span>
                         <span id="r-points">-</span>
                     </div>
                     <div class="result-row">
@@ -261,7 +261,7 @@
                     <div class="result-section">
                         <h3>基本資訊</h3>
                         <div class="result-row">
-                            <span>可得點數：</span>
+                            <span>可得樂豆點：</span>
                             <span id="sl-r-points">-</span>
                         </div>
                         <div class="result-row">
@@ -276,6 +276,11 @@
 
                     <div class="result-section">
                         <h3>期望獲得道具</h3>
+                        <div class="items-header">
+                            <span class="name">道具名稱</span>
+                            <span class="count">期望數量</span>
+                            <span class="value">期望價值</span>
+                        </div>
                         <div id="sl-r-items" class="items-list"></div>
                     </div>
 
