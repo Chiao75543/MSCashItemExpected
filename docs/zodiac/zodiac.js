@@ -1,5 +1,5 @@
 // ============================================
-// 常數定義
+// 新年氣息 - 常數定義
 // ============================================
 
 // 生肖機率 (%)
@@ -30,36 +30,14 @@ const BOX_REQUIREMENTS = {
 const BOX_PRIORITY = ['超越', '大吉', '中吉', '小吉'];
 
 // 每抽成本（點數）
-const COST_PER_DRAW = 27;
+const ZODIAC_COST_PER_DRAW = 27;
 
 // 生肖順序（按機率從低到高）
 const ZODIAC_ORDER = ['馬', '羊', '猴', '雞', '狗', '豬', '鼠', '牛', '虎', '兔', '龍', '蛇'];
 
 // ============================================
-// 計算函數
+// 新年氣息 - 計算函數
 // ============================================
-
-/**
- * 根據購買方式計算可得點數
- */
-function calculatePoints(investment, method, discount) {
-    switch (method) {
-        case 'card':
-            // 點卡 xx 折：投入金額 ÷ 折數（四捨五入）
-            return discount > 0 ? Math.round(investment / discount) : investment;
-        case 'cardreader':
-            // 讀卡機 5% 回饋
-            return investment * 1.05;
-        case 'original':
-            // 原價
-            return investment;
-        case 'gift':
-            // 送禮 xx 折：投入金額 ÷ 折數
-            return discount > 0 ? Math.round(investment / discount) : investment;
-        default:
-            return investment;
-    }
-}
 
 /**
  * 計算期望獲得的氣息數量
@@ -112,7 +90,7 @@ function calculateExpectedBoxes(breaths) {
 /**
  * 計算期望總價值
  */
-function calculateExpectedValue(boxes, boxValues) {
+function calculateZodiacExpectedValue(boxes, boxValues) {
     return boxes['小吉'] * boxValues.small +
            boxes['中吉'] * boxValues.medium +
            boxes['大吉'] * boxValues.large +
@@ -120,14 +98,14 @@ function calculateExpectedValue(boxes, boxValues) {
 }
 
 /**
- * 主計算函數
+ * 新年氣息主計算函數
  */
-function calculate(investment, method, discount, boxValues) {
+function calculateZodiac(investment, method, discount, boxValues) {
     // 1. 計算可得點數
     const points = calculatePoints(investment, method, discount);
 
     // 2. 計算可抽次數
-    const drawCount = points / COST_PER_DRAW;
+    const drawCount = points / ZODIAC_COST_PER_DRAW;
 
     // 3. 計算每個氣息的實際成本
     const costPerBreath = drawCount > 0 ? investment / drawCount : 0;
@@ -139,7 +117,7 @@ function calculate(investment, method, discount, boxValues) {
     const expectedBoxes = calculateExpectedBoxes(expectedBreaths);
 
     // 6. 計算期望總價值
-    const expectedValue = calculateExpectedValue(expectedBoxes, boxValues);
+    const expectedValue = calculateZodiacExpectedValue(expectedBoxes, boxValues);
 
     // 7. 計算報酬率
     const roi = investment > 0 ? ((expectedValue - investment) / investment) * 100 : 0;
@@ -156,12 +134,14 @@ function calculate(investment, method, discount, boxValues) {
 }
 
 // ============================================
-// UI 邏輯
+// 新年氣息 - UI 邏輯
 // ============================================
 
 document.addEventListener('DOMContentLoaded', function() {
     const calculateBtn = document.getElementById('calculate-btn');
     const resultDiv = document.getElementById('result');
+
+    if (!calculateBtn) return;
 
     calculateBtn.addEventListener('click', function() {
         const investment = parseFloat(document.getElementById('investment').value) || 0;
@@ -186,12 +166,11 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
 
-        // 本地計算（不需要 API）
-        const result = calculate(investment, method, discount, boxValues);
-        displayResult(result);
+        const result = calculateZodiac(investment, method, discount, boxValues);
+        displayZodiacResult(result);
     });
 
-    function displayResult(result) {
+    function displayZodiacResult(result) {
         resultDiv.style.display = 'block';
 
         // 基本資訊

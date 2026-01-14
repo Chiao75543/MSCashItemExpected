@@ -3,145 +3,335 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>新年氣息期望值計算機</title>
+    <title>現金道具計算機</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container">
-        <h1>新年氣息期望值計算機</h1>
+        <h1>現金道具計算機</h1>
 
-        <div class="card">
-            <h2>投入資金</h2>
-            <div class="input-group">
-                <input type="number" id="investment" placeholder="輸入金額" min="0">
-                <span class="unit">元</span>
+        <!-- Tab 切換 -->
+        <div class="tab-container">
+            <button class="tab-btn active" data-tab="zodiac">新年氣息</button>
+            <button class="tab-btn" data-tab="starlight">星光錦囊</button>
+        </div>
+
+        <!-- 新年氣息 Tab -->
+        <div id="zodiac-tab" class="tab-content active">
+            <div class="card">
+                <h2>投入資金</h2>
+                <div class="input-group">
+                    <input type="number" id="investment" placeholder="輸入金額" min="0" aria-label="投入資金">
+                    <span class="unit">元</span>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>購買方式</h2>
+                <div class="radio-group">
+                    <label class="radio-item">
+                        <input type="radio" name="method" value="card" checked>
+                        <span>點卡儲值</span>
+                        <input type="number" id="card-discount" class="discount-input" value="0.95" step="0.01" min="0" max="1" aria-label="點卡折扣">
+                        <span class="unit">折</span>
+                    </label>
+                    <label class="radio-item">
+                        <input type="radio" name="method" value="cardreader">
+                        <span>讀卡機（5%回饋）</span>
+                    </label>
+                    <label class="radio-item">
+                        <input type="radio" name="method" value="original">
+                        <span>原價</span>
+                    </label>
+                    <label class="radio-item">
+                        <input type="radio" name="method" value="gift">
+                        <span>送禮</span>
+                        <input type="number" id="gift-discount" class="discount-input" value="0.8" step="0.01" min="0" max="1" aria-label="送禮折扣">
+                        <span class="unit">折</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>心願箱價值（台幣）</h2>
+                <div class="box-values">
+                    <div class="box-input">
+                        <label for="box-small">小吉</label>
+                        <input type="number" id="box-small" placeholder="0" min="0">
+                    </div>
+                    <div class="box-input">
+                        <label for="box-medium">中吉</label>
+                        <input type="number" id="box-medium" placeholder="0" min="0">
+                    </div>
+                    <div class="box-input">
+                        <label for="box-large">大吉</label>
+                        <input type="number" id="box-large" placeholder="0" min="0">
+                    </div>
+                    <div class="box-input">
+                        <label for="box-super">超越</label>
+                        <input type="number" id="box-super" placeholder="0" min="0">
+                    </div>
+                </div>
+            </div>
+
+            <button id="calculate-btn" class="calculate-btn">計算</button>
+
+            <div id="result" class="card result-card" style="display: none;">
+                <h2>計算結果</h2>
+
+                <div class="result-section">
+                    <h3>基本資訊</h3>
+                    <div class="result-row">
+                        <span>可得樂豆點：</span>
+                        <span id="r-points">-</span>
+                    </div>
+                    <div class="result-row">
+                        <span>可抽次數：</span>
+                        <span id="r-draws">-</span>
+                    </div>
+                    <div class="result-row">
+                        <span>每個氣息成本：</span>
+                        <span id="r-cost">-</span>
+                    </div>
+                </div>
+
+                <div class="result-section">
+                    <h3>期望獲得氣息</h3>
+                    <div id="r-breaths" class="breaths-grid"></div>
+                </div>
+
+                <div class="result-section">
+                    <h3>期望心願箱</h3>
+                    <div class="result-row">
+                        <span>超越：</span>
+                        <span id="r-box-super">-</span>
+                    </div>
+                    <div class="result-row">
+                        <span>大吉：</span>
+                        <span id="r-box-large">-</span>
+                    </div>
+                    <div class="result-row">
+                        <span>中吉：</span>
+                        <span id="r-box-medium">-</span>
+                    </div>
+                    <div class="result-row">
+                        <span>小吉：</span>
+                        <span id="r-box-small">-</span>
+                    </div>
+                </div>
+
+                <div class="result-section highlight">
+                    <div class="result-row big">
+                        <span>期望總價值：</span>
+                        <span id="r-value">-</span>
+                    </div>
+                    <div class="result-row big">
+                        <span>報酬率：</span>
+                        <span id="r-roi">-</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card info-card">
+                <h3>12生肖機率</h3>
+                <div class="rate-table">
+                    <div class="rate-row"><span>馬</span><span>0.15%</span></div>
+                    <div class="rate-row"><span>羊</span><span>0.20%</span></div>
+                    <div class="rate-row"><span>猴</span><span>0.25%</span></div>
+                    <div class="rate-row"><span>雞</span><span>0.80%</span></div>
+                    <div class="rate-row"><span>狗</span><span>0.90%</span></div>
+                    <div class="rate-row"><span>豬</span><span>1.00%</span></div>
+                    <div class="rate-row"><span>鼠</span><span>2.50%</span></div>
+                    <div class="rate-row"><span>牛</span><span>3.00%</span></div>
+                    <div class="rate-row"><span>虎</span><span>3.50%</span></div>
+                    <div class="rate-row"><span>兔</span><span>29.20%</span></div>
+                    <div class="rate-row"><span>龍</span><span>29.25%</span></div>
+                    <div class="rate-row"><span>蛇</span><span>29.25%</span></div>
+                </div>
             </div>
         </div>
 
-        <div class="card">
-            <h2>購買方式</h2>
-            <div class="radio-group">
-                <label class="radio-item">
-                    <input type="radio" name="method" value="card" checked>
-                    <span>點卡儲值</span>
-                    <input type="number" id="card-discount" class="discount-input" value="0.95" step="0.01" min="0" max="1">
-                    <span class="unit">折</span>
-                </label>
-                <label class="radio-item">
-                    <input type="radio" name="method" value="cardreader">
-                    <span>讀卡機（5%回饋）</span>
-                </label>
-                <label class="radio-item">
-                    <input type="radio" name="method" value="original">
-                    <span>原價</span>
-                </label>
-                <label class="radio-item">
-                    <input type="radio" name="method" value="gift">
-                    <span>送禮</span>
-                    <input type="number" id="gift-discount" class="discount-input" value="0.8" step="0.01" min="0" max="1">
-                    <span class="unit">折</span>
-                </label>
-            </div>
-        </div>
+        <!-- 星光錦囊 Tab -->
+        <div id="starlight-tab" class="tab-content">
+            <!-- 期望值計算機 -->
+                <div class="card">
+                    <h2>投入資金</h2>
+                    <div class="input-group">
+                        <input type="number" id="sl-investment" placeholder="輸入金額" min="0" aria-label="投入資金">
+                        <span class="unit">元</span>
+                    </div>
+                </div>
 
-        <div class="card">
-            <h2>心願箱價值（台幣）</h2>
-            <div class="box-values">
-                <div class="box-input">
-                    <label>小吉</label>
-                    <input type="number" id="box-small" placeholder="0" min="0">
+                <div class="card">
+                    <h2>購買方式</h2>
+                    <div class="radio-group">
+                        <label class="radio-item">
+                            <input type="radio" name="sl-method" value="card" checked>
+                            <span>點卡儲值</span>
+                            <input type="number" id="sl-card-discount" class="discount-input" value="0.95" step="0.01" min="0" max="1" aria-label="點卡折扣">
+                            <span class="unit">折</span>
+                        </label>
+                        <label class="radio-item">
+                            <input type="radio" name="sl-method" value="cardreader">
+                            <span>讀卡機（5%回饋）</span>
+                        </label>
+                        <label class="radio-item">
+                            <input type="radio" name="sl-method" value="original">
+                            <span>原價</span>
+                        </label>
+                        <label class="radio-item">
+                            <input type="radio" name="sl-method" value="gift">
+                            <span>送禮</span>
+                            <input type="number" id="sl-gift-discount" class="discount-input" value="0.8" step="0.01" min="0" max="1" aria-label="送禮折扣">
+                            <span class="unit">折</span>
+                        </label>
+                    </div>
                 </div>
-                <div class="box-input">
-                    <label>中吉</label>
-                    <input type="number" id="box-medium" placeholder="0" min="0">
-                </div>
-                <div class="box-input">
-                    <label>大吉</label>
-                    <input type="number" id="box-large" placeholder="0" min="0">
-                </div>
-                <div class="box-input">
-                    <label>超越</label>
-                    <input type="number" id="box-super" placeholder="0" min="0">
-                </div>
-            </div>
-        </div>
 
-        <button id="calculate-btn" class="calculate-btn">計算</button>
+                <div class="card">
+                    <h2>道具價值設定（台幣）</h2>
+                    <p class="info-text">僅計算第一階段（星光錦囊）道具價值，玲瓏星光及後續階段道具不計入</p>
 
-        <div id="result" class="card result-card" style="display: none;">
-            <h2>計算結果</h2>
+                    <h3 class="section-title">傳說潛能卷軸</h3>
+                    <div class="value-grid">
+                        <div class="value-input">
+                            <label for="sl-v-legend50">傳說潛能50%</label>
+                            <input type="number" id="sl-v-legend50" placeholder="0" min="0">
+                        </div>
+                        <div class="value-input">
+                            <label for="sl-v-legend100">傳說潛能100%</label>
+                            <input type="number" id="sl-v-legend100" placeholder="0" min="0">
+                        </div>
+                    </div>
 
-            <div class="result-section">
-                <h3>基本資訊</h3>
-                <div class="result-row">
-                    <span>可得點數：</span>
-                    <span id="r-points">-</span>
-                </div>
-                <div class="result-row">
-                    <span>可抽次數：</span>
-                    <span id="r-draws">-</span>
-                </div>
-                <div class="result-row">
-                    <span>每個氣息成本：</span>
-                    <span id="r-cost">-</span>
-                </div>
-            </div>
+                    <h3 class="section-title">星力強化券</h3>
+                    <div class="value-grid">
+                        <div class="value-input">
+                            <label for="sl-v-star14">14星強化券</label>
+                            <input type="number" id="sl-v-star14" placeholder="0" min="0">
+                        </div>
+                        <div class="value-input">
+                            <label for="sl-v-star15">15星強化券</label>
+                            <input type="number" id="sl-v-star15" placeholder="0" min="0">
+                        </div>
+                        <div class="value-input">
+                            <label for="sl-v-star16">16星強化券</label>
+                            <input type="number" id="sl-v-star16" placeholder="0" min="0">
+                        </div>
+                        <div class="value-input">
+                            <label for="sl-v-star17">17星強化券</label>
+                            <input type="number" id="sl-v-star17" placeholder="0" min="0">
+                        </div>
+                        <div class="value-input">
+                            <label for="sl-v-star18">18星強化券</label>
+                            <input type="number" id="sl-v-star18" placeholder="0" min="0">
+                        </div>
+                        <div class="value-input">
+                            <label for="sl-v-star19">19星強化券</label>
+                            <input type="number" id="sl-v-star19" placeholder="0" min="0">
+                        </div>
+                        <div class="value-input">
+                            <label for="sl-v-star20">20星強化券</label>
+                            <input type="number" id="sl-v-star20" placeholder="0" min="0">
+                        </div>
+                    </div>
 
-            <div class="result-section">
-                <h3>期望獲得氣息</h3>
-                <div id="r-breaths" class="breaths-grid"></div>
-            </div>
+                    <h3 class="section-title">突破強化券</h3>
+                    <div class="value-grid">
+                        <div class="value-input">
+                            <label for="sl-v-break21-100">21星突破100%</label>
+                            <input type="number" id="sl-v-break21-100" placeholder="0" min="0">
+                        </div>
+                        <div class="value-input">
+                            <label for="sl-v-break22-100">22星突破100%</label>
+                            <input type="number" id="sl-v-break22-100" placeholder="0" min="0">
+                        </div>
+                        <div class="value-input">
+                            <label for="sl-v-break23-30">23星追加30%</label>
+                            <input type="number" id="sl-v-break23-30" placeholder="0" min="0">
+                        </div>
+                    </div>
+                </div>
 
-            <div class="result-section">
-                <h3>期望心願箱</h3>
-                <div class="result-row">
-                    <span>超越：</span>
-                    <span id="r-box-super">-</span>
-                </div>
-                <div class="result-row">
-                    <span>大吉：</span>
-                    <span id="r-box-large">-</span>
-                </div>
-                <div class="result-row">
-                    <span>中吉：</span>
-                    <span id="r-box-medium">-</span>
-                </div>
-                <div class="result-row">
-                    <span>小吉：</span>
-                    <span id="r-box-small">-</span>
-                </div>
-            </div>
+                <button id="sl-calculate-btn" class="calculate-btn">計算期望值</button>
 
-            <div class="result-section highlight">
-                <div class="result-row big">
-                    <span>期望總價值：</span>
-                    <span id="r-value">-</span>
-                </div>
-                <div class="result-row big">
-                    <span>報酬率：</span>
-                    <span id="r-roi">-</span>
-                </div>
-            </div>
-        </div>
+                <div id="sl-result" class="card result-card" style="display: none;">
+                    <h2>計算結果</h2>
 
-        <div class="card info-card">
-            <h3>12生肖機率</h3>
-            <div class="rate-table">
-                <div class="rate-row"><span>馬</span><span>0.15%</span></div>
-                <div class="rate-row"><span>羊</span><span>0.20%</span></div>
-                <div class="rate-row"><span>猴</span><span>0.25%</span></div>
-                <div class="rate-row"><span>雞</span><span>0.80%</span></div>
-                <div class="rate-row"><span>狗</span><span>0.90%</span></div>
-                <div class="rate-row"><span>豬</span><span>1.00%</span></div>
-                <div class="rate-row"><span>鼠</span><span>2.50%</span></div>
-                <div class="rate-row"><span>牛</span><span>3.00%</span></div>
-                <div class="rate-row"><span>虎</span><span>3.50%</span></div>
-                <div class="rate-row"><span>兔</span><span>29.20%</span></div>
-                <div class="rate-row"><span>龍</span><span>29.25%</span></div>
-                <div class="rate-row"><span>蛇</span><span>29.25%</span></div>
+                    <div class="result-section">
+                        <h3>基本資訊</h3>
+                        <div class="result-row">
+                            <span>換算樂豆點：</span>
+                            <span id="sl-r-points">-</span>
+                        </div>
+                        <div class="result-row">
+                            <span>可抽次數：</span>
+                            <span id="sl-r-draws">-</span>
+                        </div>
+                        <div class="result-row">
+                            <span>每抽成本：</span>
+                            <span id="sl-r-cost">-</span>
+                        </div>
+                    </div>
+
+                    <div class="result-section">
+                        <h3>期望獲得道具</h3>
+                        <div class="items-header">
+                            <span class="name">道具名稱</span>
+                            <span class="count">期望數量</span>
+                            <span class="value">期望價值</span>
+                        </div>
+                        <div id="sl-r-items" class="items-list"></div>
+                    </div>
+
+                    <div class="result-section highlight">
+                        <div class="result-row big">
+                            <span>期望總價值：</span>
+                            <span id="sl-r-value">-</span>
+                        </div>
+                        <div class="result-row big">
+                            <span>報酬率：</span>
+                            <span id="sl-r-roi">-</span>
+                        </div>
+                    </div>
+                </div>
+
+            <!-- 機率說明 -->
+            <div class="card info-card">
+                <h3>抽取機率說明</h3>
+                <div class="rate-tables">
+                    <div class="rate-section">
+                        <h4>星光錦囊（每抽45元）</h4>
+                        <div class="rate-list">
+                            <div class="rate-row"><span>靈魂艾爾達碎片交換券(10個)</span><span>8.00%</span></div>
+                            <div class="rate-row"><span>靈魂艾爾達</span><span>6.00%</span></div>
+                            <div class="rate-row"><span>永遠的輪迴星火</span><span>14.40%</span></div>
+                            <div class="rate-row"><span>暗黑輪迴星火</span><span>13.70%</span></div>
+                            <div class="rate-row"><span>特別附加潛在能力賦予卷軸</span><span>7.80%</span></div>
+                            <div class="rate-row"><span>傳說潛在能力卷軸50%</span><span>0.85%</span></div>
+                            <div class="rate-row"><span>傳說潛在能力卷軸100%</span><span>0.55%</span></div>
+                            <div class="rate-row"><span>星力14星強化券</span><span>15.00%</span></div>
+                            <div class="rate-row"><span>星力15星強化券</span><span>10.00%</span></div>
+                            <div class="rate-row"><span>星力16星強化券</span><span>7.00%</span></div>
+                            <div class="rate-row"><span>星力17星強化券</span><span>3.40%</span></div>
+                            <div class="rate-row"><span>星力18星強化券</span><span>1.50%</span></div>
+                            <div class="rate-row"><span>星力19星強化券</span><span>0.60%</span></div>
+                            <div class="rate-row"><span>星力20星強化券</span><span>0.40%</span></div>
+                            <div class="rate-row"><span>突破1星強化券100%(21星)</span><span>0.45%</span></div>
+                            <div class="rate-row"><span>突破1星強化券100%(22星)</span><span>0.20%</span></div>
+                            <div class="rate-row"><span>追加1星強化券30%(23星)</span><span>0.15%</span></div>
+                            <div class="rate-row highlight-row"><span>玲瓏星光</span><span>10.00%</span></div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-    <script src="app.js"></script>
+    <!-- 共用函數 -->
+    <script src="common.js"></script>
+    <!-- 新年氣息模組 -->
+    <script src="zodiac/zodiac.js"></script>
+    <!-- 星光錦囊模組 -->
+    <script src="starlight/starlight.js"></script>
 </body>
 </html>
